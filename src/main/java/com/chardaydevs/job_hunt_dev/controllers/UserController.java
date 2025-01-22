@@ -4,8 +4,10 @@ import java.util.Optional;
 
 import com.chardaydevs.job_hunt_dev.models.User;
 import com.chardaydevs.job_hunt_dev.repositories.UserRepository;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 
 @RestController
@@ -23,12 +25,20 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public Optional<User> getUserById(@PathVariable("id") Integer id) {
-//        validate id
-//        return user
-        return this.userRepository.findById(id);
-//        throw exception if no user found
-//        throw exception if id is invalid
+    public Optional<User> getUserById(@PathVariable("id") String id) {
+        try {
+            Integer userId = Integer.parseInt(id);
+
+            Optional<User> user = this.userRepository.findById(userId);
+            if (!user.isPresent()) {
+                String errorString = String.format("Error Fetching User: %s does not exist", id);
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cannot retrieve User: does not exist");
+            }
+            return user;
+        } catch (NumberFormatException error) {
+            String errorString = String.format("Error Fetching User: %s is an invalid id", id);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, errorString);
+        }
     }
 
     @PostMapping("")
