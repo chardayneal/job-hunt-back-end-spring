@@ -32,24 +32,20 @@ public class UserController {
         return this.userRepository.save(user);
     }
 
-
     @GetMapping("")
     public Iterable<User> getAllUsers() {
         return this.userRepository.findAll();
     }
-
 
     @GetMapping("/{id}")
     public User getUserById(@PathVariable("id") String id) {
         return validateUser(id);
     }
 
-
     @PutMapping("/{id}")
     public User updateUser(@PathVariable String id, @RequestBody User u) {
         User foundUser = validateUser(id);
 
-//        validate request Body
         if (u.getName() != null) {
             foundUser.setName(u.getName());
         }
