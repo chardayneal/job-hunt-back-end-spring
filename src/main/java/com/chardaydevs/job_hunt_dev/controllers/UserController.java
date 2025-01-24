@@ -48,6 +48,12 @@ public class UserController {
         return validateUser(id);
     }
 
+    @GetMapping("/{id}/leads")
+    public Iterable<Lead> getAllLeadsByUserId(@PathVariable("id") String id) {
+        User user = validateUser(id);
+        return user.getLeads();
+    }
+
     @PutMapping("/{id}")
     public User updateUser(@PathVariable String id, @RequestBody User u) {
         User foundUser = validateUser(id);
