@@ -1,0 +1,1 @@
+web: java -jar target/job-hunt-dev-0.0.1-SNAPSHOT.jar
