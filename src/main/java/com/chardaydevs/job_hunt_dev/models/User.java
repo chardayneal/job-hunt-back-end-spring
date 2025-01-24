@@ -2,6 +2,9 @@ package com.chardaydevs.job_hunt_dev.models;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name="users")
 public class User {
@@ -16,6 +19,8 @@ public class User {
     @Column(name = "email")
     private String email;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Lead> leads = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -39,5 +44,13 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<Lead> getLeads() {
+        return leads;
+    }
+
+    public void setLeads(List<Lead> leads) {
+        this.leads = leads;
     }
 }
