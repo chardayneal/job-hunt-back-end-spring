@@ -21,14 +21,6 @@ public class UserController {
 
     @PostMapping("")
     public User createUser(@RequestBody User user) {
-        if (user.getId() == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Error Creating User: must include an id");
-        } else if (user.getName() == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Error Creating User: must include name");
-        } else if (user.getEmail() == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Error Creating User: must include email");
-        }
-
         return this.userRepository.save(user);
     }
 
