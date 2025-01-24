@@ -24,9 +24,11 @@ public class UserLeadService {
 
     @Transactional
     public Lead addLeadToUser(Integer userId, Lead lead) {
-        Optional<User> user = userRepository.findById(userId);
-        lead.setUser(user.get());
-        user.get().getLeads().add(lead);
+        if (!userRepository.existsById(userId)) {
+            throw new RuntimeException("User does not exist");
+        }
+
+        lead.setUserId(userId);
 
         return leadRepository.save(lead);
     }

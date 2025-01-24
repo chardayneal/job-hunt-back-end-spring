@@ -16,9 +16,8 @@ public class Lead {
     @Column(name = "company")
     private String company;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @Column(name = "user_id", nullable = false)
+    private Integer userId;
 
     public Integer getId() {
         return id;
@@ -44,11 +43,11 @@ public class Lead {
         this.company = company;
     }
 
-    public User getUser() {
-        return user;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 }
