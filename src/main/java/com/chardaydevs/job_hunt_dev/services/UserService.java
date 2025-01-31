@@ -48,8 +48,7 @@ public class UserService {
         return foundUser.get();
     }
 
-    public void validateUserFields(String id, User u) {
-        User user = validateUser(id);
+    public void validateUserFields(User u) {
 
         if (u == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Request body cannot be empty");

@@ -56,8 +56,7 @@ public class UserController {
 
     @PatchMapping("/{id}")
     public User updateUser(@PathVariable("id") String id, @RequestBody User u) {
-        this.userService.validateUserFields(id, u);
-
+        this.userService.validateUserFields(u);
         return this.userService.updateUser(id, u);
     }
 

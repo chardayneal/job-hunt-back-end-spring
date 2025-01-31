@@ -3,6 +3,7 @@ package com.chardaydevs.job_hunt_dev.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PastOrPresent;
 
 import java.util.Date;
 import java.util.UUID;
@@ -20,6 +21,7 @@ public class History {
     @Column(name = "status")
     private String status;
 
+    @PastOrPresent
     @Column(name = "date")
     private Date date = new Date();
 

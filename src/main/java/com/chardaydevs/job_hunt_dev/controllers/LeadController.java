@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -39,6 +40,12 @@ public class LeadController {
     @GetMapping("/{id}")
     public Lead getLeadById(@PathVariable("id") String id) {
         return this.leadService.validateLead(id);
+    }
+
+    @GetMapping("/{id}/history")
+    public List<History> getAllHistoryByLeadId(@PathVariable("id") String id) {
+        Lead lead = this.leadService.validateLead(id);
+        return lead.getHistoryList();
     }
 
     @PatchMapping("/{id}")
