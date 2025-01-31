@@ -62,7 +62,7 @@ public class Task {
     }
 
     public void setComplete(Boolean complete) {
-        isComplete = complete;
+        this.isComplete = complete;
     }
 
     public UUID getUserId() {

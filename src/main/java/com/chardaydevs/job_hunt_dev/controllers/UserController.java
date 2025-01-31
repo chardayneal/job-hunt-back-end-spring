@@ -65,6 +65,12 @@ public class UserController {
         return user.getLeads();
     }
 
+    @GetMapping("/{id}/tasks")
+    public Iterable<Task> getAllTasksByUserId(@Valid @PathVariable("id") String id) {
+        User user = this.userService.validateUser(id);
+        return user.getTasks();
+    }
+
     @PatchMapping("/{id}")
     public User updateUser(@PathVariable("id") String id, @RequestBody User u) {
         this.userService.validateUserFields(u);
