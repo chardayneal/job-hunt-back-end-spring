@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -26,14 +25,11 @@ public class Lead {
     @Column(name = "company", nullable = false)
     private String company;
 
-    @Column(name = "description")
+    @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
     @Column(name = "job_url")
     private String jobURL;
-
-    @Column(name = "job_posting_date")
-    private Date jobPostingDate;
 
     @Column(name = "location")
     private String location;
@@ -80,10 +76,6 @@ public class Lead {
     public String getJobURL() {return jobURL;}
 
     public void setJobURL(String jobURL) {this.jobURL = jobURL;}
-
-    public Date getJobPostingDate() {return jobPostingDate;}
-
-    public void setJobPostingDate(Date jobPostingDate) {this.jobPostingDate = jobPostingDate;}
 
     public String getLocation() {return location;}
 

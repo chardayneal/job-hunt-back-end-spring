@@ -26,7 +26,6 @@ public class Task {
     @Column(name = "date")
     private Date date = new Date();
 
-    @NotNull(message = "Must be marked complete or incomplete")
     @Column(name = "is_complete")
     private Boolean isComplete = false;
 

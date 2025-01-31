@@ -18,15 +18,18 @@ public class UserLeadService {
 
     private final UserRepository userRepository;
     private final LeadRepository leadRepository;
+    private final LeadService leadService;
 
     @Autowired
-    public UserLeadService(UserRepository userRepository, LeadRepository leadRepository) {
+    public UserLeadService(final UserRepository userRepository, final LeadRepository leadRepository, final LeadService leadService) {
         this.userRepository = userRepository;
         this.leadRepository = leadRepository;
+        this.leadService = leadService;
     }
 
     @Transactional
-    public Lead addLeadToUser(User user, @Valid Lead lead) {
+    public Lead addLeadToUser(User user, Lead lead) {
+        this.leadService.validateLeadFields(lead);
         List<Lead> userLeads = user.getLeads();
         userLeads.add(lead);
 

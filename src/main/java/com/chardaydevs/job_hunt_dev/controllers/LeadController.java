@@ -50,7 +50,7 @@ public class LeadController {
 
     @PatchMapping("/{id}")
     public Lead updateLeadById(@PathVariable("id") String id, @RequestBody Lead l) {
-        this.leadService.validateLeadFields(id, l);
+        this.leadService.validateLeadFields(l);
 
         return this.leadService.updateLead(id, l);
     }

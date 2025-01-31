@@ -34,6 +34,7 @@ public class UserService {
         return user;
     }
 
+    @Transactional
     public User validateUser(String id) throws InvalidUserException, InvalidIdException {
         try {
             UUID userId = UUID.fromString(id);
@@ -48,6 +49,7 @@ public class UserService {
         return foundUser.get();
     }
 
+    @Transactional
     public void validateUserFields(User u) {
 
         if (u == null) {
@@ -71,6 +73,7 @@ public class UserService {
         return email.matches(emailRegex);
     }
 
+    @Transactional
     public User updateUser(String id, User u) {
         User user = validateUser(id);
 

@@ -42,6 +42,7 @@ public class HistoryService {
         return foundHistory.get();
     }
 
+    @Transactional
     public void validateHistoryFields(History h) {
         if (h == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Request body cannot be empty");
@@ -68,6 +69,7 @@ public class HistoryService {
         return this.historyRepository.save(history);
     }
 
+    @Transactional
     public History updateHistory(String id, History h) {
         History history = validateHistory(id);
 
@@ -77,6 +79,4 @@ public class HistoryService {
 
         return this.historyRepository.save(history);
     }
-
-//
 }

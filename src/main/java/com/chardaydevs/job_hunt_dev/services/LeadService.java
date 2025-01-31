@@ -40,8 +40,7 @@ public class LeadService {
     }
 
     @Transactional
-    public void validateLeadFields(String id, Lead l) {
-        Lead lead = validateLead(id);
+    public void validateLeadFields( Lead l) {
 
         if (l == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Request body cannot be empty");
@@ -76,9 +75,6 @@ public class LeadService {
         }
         if (l.getJobURL() != null) {
             lead.setJobURL(l.getJobURL());
-        }
-        if (l.getJobPostingDate() != null) {
-            lead.setJobPostingDate(l.getJobPostingDate());
         }
         if (l.getDescription() != null) {
             lead.setDescription(l.getDescription());
