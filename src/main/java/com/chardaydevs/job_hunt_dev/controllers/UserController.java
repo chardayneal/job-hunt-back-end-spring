@@ -48,11 +48,11 @@ public class UserController {
         return this.userService.validateUser(id);
     }
 
-//    @GetMapping("/{id}/leads")
-//    public Iterable<Lead> getAllLeadsByUserId(@Valid @PathVariable("id") String id) {
-//        User user = this.userService.validateUser(id);
-//        return user.getLeads();
-//    }
+    @GetMapping("/{id}/leads")
+    public Iterable<Lead> getAllLeadsByUserId(@Valid @PathVariable("id") String id) {
+        User user = this.userService.validateUser(id);
+        return user.getLeads();
+    }
 
     @PatchMapping("/{id}")
     public User updateUser(@PathVariable("id") String id, @RequestBody User u) {
