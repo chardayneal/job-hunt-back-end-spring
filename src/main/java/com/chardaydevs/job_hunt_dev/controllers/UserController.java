@@ -36,11 +36,11 @@ public class UserController {
          return this.userService.createValidUser(user);
     }
 
-    @PostMapping("/{id}/leads")
-    public ResponseEntity<Lead> createLead(@PathVariable("id") UUID parentId, @RequestBody Lead lead) {
-        Lead savedLead = userLeadService.addLeadToUser(parentId, lead);
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedLead);
-    }
+//    @PostMapping("/{id}/leads")
+//    public ResponseEntity<Lead> createLead(@PathVariable("id") UUID parentId, @RequestBody Lead lead) {
+//        Lead savedLead = userLeadService.addLeadToUser(parentId, lead);
+//        return ResponseEntity.status(HttpStatus.CREATED).body(savedLead);
+//    }
 
     @GetMapping("/{id}")
     public User getUserById(@PathVariable("id") String id) {
@@ -53,17 +53,11 @@ public class UserController {
 //        return user.getLeads();
 //    }
 
-    @PutMapping("/{id}")
-    public User updateUser(@PathVariable String id, @RequestBody User u) {
-        User foundUser = this.userService.validateUser(id);
+    @PatchMapping("/{id}")
+    public User updateUser(@PathVariable("id") String id, @RequestBody User u) {
+        this.userService.validateUserFields(id, u);
 
-        if (u.getName() != null) {
-            foundUser.setName(u.getName());
-        }
-        if (u.getEmail() != null) {
-            foundUser.setEmail(u.getEmail());
-        }
-        return this.userRepository.save(foundUser);
+        return this.userService.updateUser(id, u);
     }
 
     @DeleteMapping("/{id}")

@@ -1,6 +1,8 @@
 package com.chardaydevs.job_hunt_dev.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
 import java.util.ArrayList;
@@ -9,6 +11,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name="users")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class User {
 
     @Id
@@ -20,6 +23,7 @@ public class User {
     private String name;
 
     @NotBlank(message = "User's email cannot be empty or null")
+    @Email(message = "Invalid user email format")
     @Column(name = "email", nullable = false)
     private String email;
 
