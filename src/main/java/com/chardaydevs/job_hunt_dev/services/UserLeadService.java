@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class UserLeadService {
@@ -23,7 +24,7 @@ public class UserLeadService {
     }
 
     @Transactional
-    public Lead addLeadToUser(Integer userId, Lead lead) {
+    public Lead addLeadToUser(UUID userId, Lead lead) {
         if (!userRepository.existsById(userId)) {
             throw new RuntimeException("User does not exist");
         }

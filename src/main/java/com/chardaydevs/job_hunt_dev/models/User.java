@@ -1,32 +1,36 @@
 package com.chardaydevs.job_hunt_dev.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name="users")
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
-    @Column(name = "name")
+    @NotBlank(message = "User's name cannot be empty or null")
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "email")
+    @NotBlank(message = "User's email cannot be empty or null")
+    @Column(name = "email", nullable = false)
     private String email;
 
     @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Lead> leads = new ArrayList<>();
 
-    public Integer getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
