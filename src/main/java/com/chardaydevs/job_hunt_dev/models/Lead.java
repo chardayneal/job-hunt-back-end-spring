@@ -1,6 +1,8 @@
 package com.chardaydevs.job_hunt_dev.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.Date;
 import java.util.UUID;
@@ -13,11 +15,16 @@ public class Lead {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(name = "title")
+    @NotBlank(message = "Must include job title")
+    @Column(name = "title", nullable = false)
     private String title;
 
-    @Column(name = "company")
+    @NotBlank(message = "Must include job title")
+    @Column(name = "company", nullable = false)
     private String company;
+
+    @Column(name = "description")
+    private String description;
 
     @Column(name = "job_url")
     private String jobURL;
@@ -31,6 +38,7 @@ public class Lead {
     @Column(name = "level")
     private String level;
 
+    @NotBlank(message = "Status cannot be null or empty")
     @Column(name = "status")
     private String status;
 
@@ -54,6 +62,14 @@ public class Lead {
 
     public void setCompany(String company) {
         this.company = company;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getJobURL() {return jobURL;}

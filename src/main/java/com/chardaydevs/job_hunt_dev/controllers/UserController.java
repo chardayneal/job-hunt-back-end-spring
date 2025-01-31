@@ -36,11 +36,12 @@ public class UserController {
          return this.userService.createValidUser(user);
     }
 
-//    @PostMapping("/{id}/leads")
-//    public ResponseEntity<Lead> createLead(@PathVariable("id") UUID parentId, @RequestBody Lead lead) {
-//        Lead savedLead = userLeadService.addLeadToUser(parentId, lead);
-//        return ResponseEntity.status(HttpStatus.CREATED).body(savedLead);
-//    }
+    @PostMapping("/{id}/leads")
+    public ResponseEntity<Lead> createLead(@PathVariable("id") String parentId, @Valid @RequestBody Lead lead) {
+        User user = this.userService.validateUser(parentId);
+        Lead savedLead = userLeadService.addLeadToUser(user, lead);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedLead);
+    }
 
     @GetMapping("/{id}")
     public User getUserById(@PathVariable("id") String id) {

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/leads")
@@ -53,7 +54,7 @@ public class LeadController {
 
     public Lead validateLead(String id) {
         try {
-            Integer leadId = Integer.parseInt(id);
+            UUID leadId = UUID.fromString(id);
 
             Optional<Lead> foundLead = this.leadRepository.findById(leadId);
             if (foundLead.isEmpty()) {

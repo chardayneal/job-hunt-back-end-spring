@@ -5,9 +5,11 @@ import com.chardaydevs.job_hunt_dev.models.User;
 import com.chardaydevs.job_hunt_dev.repositories.LeadRepository;
 import com.chardaydevs.job_hunt_dev.repositories.UserRepository;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -24,14 +26,15 @@ public class UserLeadService {
     }
 
     @Transactional
-    public Lead addLeadToUser(UUID userId, Lead lead) {
-        if (!userRepository.existsById(userId)) {
-            throw new RuntimeException("User does not exist");
-        }
+    public Lead addLeadToUser(User user, @Valid Lead lead) {
+        List<Lead> userLeads = user.getLeads();
+        userLeads.add(lead);
 
-        lead.setUserId(userId);
+        user.setLeads(userLeads);
+        lead.setUserId(user.getId());
 
-        return leadRepository.save(lead);
+        this.userRepository.save(user);
+        return this.leadRepository.save(lead);
     }
 
 }
