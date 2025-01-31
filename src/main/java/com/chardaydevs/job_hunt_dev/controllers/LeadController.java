@@ -1,10 +1,14 @@
 package com.chardaydevs.job_hunt_dev.controllers;
 
+import com.chardaydevs.job_hunt_dev.models.History;
 import com.chardaydevs.job_hunt_dev.models.Lead;
 import com.chardaydevs.job_hunt_dev.models.User;
 import com.chardaydevs.job_hunt_dev.repositories.LeadRepository;
+import com.chardaydevs.job_hunt_dev.services.HistoryService;
 import com.chardaydevs.job_hunt_dev.services.LeadService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -17,10 +21,19 @@ public class LeadController {
 
     private final LeadRepository leadRepository;
     private final LeadService leadService;
+    private final HistoryService historyService;
 
-    public LeadController(LeadRepository leadRepository, LeadService leadService) {
+    public LeadController(LeadRepository leadRepository, LeadService leadService, HistoryService historyService) {
         this.leadRepository = leadRepository;
         this.leadService = leadService;
+        this.historyService = historyService;
+    }
+
+    @PostMapping("/{id}/history")
+    public ResponseEntity<History> addHistoryToLead(@PathVariable("id") String id, @RequestBody @Valid History history) {
+        Lead lead = this.leadService.validateLead(id);
+        History newHistory = this.historyService.addHistoryToLead(lead, history);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newHistory);
     }
 
     @GetMapping("/{id}")

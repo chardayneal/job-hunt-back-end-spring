@@ -3,9 +3,10 @@ package com.chardaydevs.job_hunt_dev.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -47,6 +48,8 @@ public class Lead {
     @Column(name = "user_id", nullable = false)
     private UUID userId;
 
+    @OneToMany(mappedBy = "leadId", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<History> historyList = new ArrayList<>();
 
     public UUID getId() {return id;}
 
@@ -100,5 +103,13 @@ public class Lead {
 
     public void setUserId(UUID userId) {
         this.userId = userId;
+    }
+
+    public List<History> getHistoryList() {
+        return historyList;
+    }
+
+    public void setHistoryList(List<History> historyList) {
+        this.historyList = historyList;
     }
 }
