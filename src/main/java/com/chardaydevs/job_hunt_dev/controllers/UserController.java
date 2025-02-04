@@ -34,12 +34,6 @@ public class UserController {
         this.userService = userService;
     }
 
-
-    @PostMapping("")
-    public User createUser(@Valid @RequestBody User user) {
-         return this.userService.createValidUser(user);
-    }
-
     @PostMapping("/{id}/leads")
     public ResponseEntity<User> createLead(@PathVariable("id") String parentId, @RequestBody Lead lead) {
         User user = this.userService.validateUser(parentId);

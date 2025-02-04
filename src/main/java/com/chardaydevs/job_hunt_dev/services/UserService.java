@@ -30,8 +30,19 @@ public class UserService {
 
     @Transactional
     public User createValidUser(@Valid User user) {
+        user.setToken(UUID.randomUUID());
         this.userRepository.save(user);
         return user;
+    }
+
+    @Transactional
+    public User signInUser(User user) {
+        Optional<User> foundUser =  this.userRepository.findByEmail(user.getEmail());
+        if (foundUser.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User doesn't not exist");
+        }
+        foundUser.get().setToken(UUID.randomUUID());
+        return foundUser.get();
     }
 
     @Transactional
