@@ -1,9 +1,6 @@
 package com.chardaydevs.job_hunt_dev.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
@@ -50,8 +47,9 @@ public class Lead {
     @JsonBackReference
     private User user;
 
-    @OneToMany(mappedBy = "leadId", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<History> historyList = new ArrayList<>();
+    @OneToMany(mappedBy = "lead", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<History> historyList;
 
     public UUID getId() {return id;}
 

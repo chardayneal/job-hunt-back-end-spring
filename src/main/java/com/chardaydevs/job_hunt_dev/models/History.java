@@ -1,5 +1,6 @@
 package com.chardaydevs.job_hunt_dev.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -25,8 +26,10 @@ public class History {
     @Column(name = "date")
     private Date date = new Date();
 
-    @Column(name = "lead_id", nullable = false)
-    private UUID leadId;
+    @ManyToOne
+    @JoinColumn(name = "lead_id")
+    @JsonBackReference
+    private Lead lead;
 
     public UUID getId() {
         return id;
@@ -52,11 +55,11 @@ public class History {
         this.date = date;
     }
 
-    public UUID getLeadId() {
-        return leadId;
+    public Lead getLead() {
+        return lead;
     }
 
-    public void setLeadId(UUID leadId) {
-        this.leadId = leadId;
+    public void setLead(Lead lead) {
+        this.lead = lead;
     }
 }

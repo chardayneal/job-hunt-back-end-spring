@@ -31,10 +31,10 @@ public class LeadController {
     }
 
     @PostMapping("/{id}/history")
-    public ResponseEntity<History> addHistoryToLead(@PathVariable("id") String id, @RequestBody @Valid History history) {
+    public ResponseEntity<Lead> addHistoryToLead(@PathVariable("id") String id, @RequestBody @Valid History history) {
         Lead lead = this.leadService.validateLead(id);
-        History newHistory = this.historyService.addHistoryToLead(lead, history);
-        return ResponseEntity.status(HttpStatus.CREATED).body(newHistory);
+        Lead updatedLead = this.historyService.addHistoryToLead(lead, history);
+        return ResponseEntity.status(HttpStatus.CREATED).body(updatedLead);
     }
 
     @GetMapping("/{id}")

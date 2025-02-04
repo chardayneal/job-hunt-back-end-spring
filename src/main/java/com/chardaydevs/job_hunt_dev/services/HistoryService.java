@@ -58,15 +58,12 @@ public class HistoryService {
     }
 
     @Transactional
-    public History addHistoryToLead(Lead lead, @Valid History history) {
-        List<History> historyList = lead.getHistoryList();
-        historyList.add(history);
+    public Lead addHistoryToLead(Lead lead, @Valid History history) {
+        history.setLead(lead);
+        lead.getHistoryList().add(history);
 
-        lead.setHistoryList(historyList);
-        history.setLeadId(lead.getId());
+        return this.leadRepository.save(lead);
 
-        this.leadRepository.save(lead);
-        return this.historyRepository.save(history);
     }
 
     @Transactional
