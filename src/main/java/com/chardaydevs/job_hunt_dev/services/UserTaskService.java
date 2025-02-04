@@ -26,14 +26,10 @@ public class UserTaskService {
     }
 
     @Transactional
-    public Task addTaskToUser(User user, @Valid Task task) {
-        List<Task> userTasks = user.getTasks();
-        userTasks.add(task);
+    public User addTaskToUser(User user, @Valid Task task) {
+        task.setUser(user);
+        user.getTasks().add(task);
 
-        user.setTasks(userTasks);
-        task.setUserId(user.getId());
-
-        this.userRepository.save(user);
-        return this.taskRepository.save(task);
+        return this.userRepository.save(user);
     }
 }

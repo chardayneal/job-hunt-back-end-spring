@@ -1,5 +1,6 @@
 package com.chardaydevs.job_hunt_dev.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.FutureOrPresent;
@@ -29,8 +30,10 @@ public class Task {
     @Column(name = "is_complete")
     private Boolean isComplete = false;
 
-    @Column(name = "user_id", nullable = false)
-    private UUID userId;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonBackReference
+    private User user;
 
     public UUID getId() {
         return id;
@@ -64,11 +67,11 @@ public class Task {
         this.isComplete = complete;
     }
 
-    public UUID getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(UUID userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

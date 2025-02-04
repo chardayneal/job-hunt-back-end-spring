@@ -48,10 +48,10 @@ public class UserController {
     }
 
     @PostMapping("/{id}/tasks")
-    public ResponseEntity<Task> createTask(@PathVariable("id") String parentId, @Valid @RequestBody Task task) {
+    public ResponseEntity<User> createTask(@PathVariable("id") String parentId, @Valid @RequestBody Task task) {
         User user = this.userService.validateUser(parentId);
-        Task newTask = this.userTaskService.addTaskToUser(user, task);
-        return ResponseEntity.status(HttpStatus.CREATED).body(newTask);
+        User updatedUser = this.userTaskService.addTaskToUser(user, task);
+        return ResponseEntity.status(HttpStatus.CREATED).body(updatedUser);
     }
 
     @GetMapping("/{id}")

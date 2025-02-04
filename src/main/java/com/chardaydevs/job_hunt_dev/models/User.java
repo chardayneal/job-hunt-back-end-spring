@@ -35,8 +35,9 @@ public class User {
     @JsonManagedReference
     private List<Lead> leads;
 
-    @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Task> tasks = new ArrayList<>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Task> tasks;
 
     public UUID getId() {
         return id;
