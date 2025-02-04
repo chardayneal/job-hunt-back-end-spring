@@ -1,6 +1,9 @@
 package com.chardaydevs.job_hunt_dev.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
@@ -11,6 +14,7 @@ import java.util.UUID;
 @Entity
 @Table(name = "leads")
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Lead {
 
     @Id
@@ -41,8 +45,10 @@ public class Lead {
     @Column(name = "status")
     private String status;
 
-    @Column(name = "user_id", nullable = false)
-    private UUID userId;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonBackReference
+    private User user;
 
     @OneToMany(mappedBy = "leadId", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<History> historyList = new ArrayList<>();
@@ -89,12 +95,12 @@ public class Lead {
 
     public void setStatus(String status) {this.status = status;}
 
-    public UUID getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(UUID userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public List<History> getHistoryList() {

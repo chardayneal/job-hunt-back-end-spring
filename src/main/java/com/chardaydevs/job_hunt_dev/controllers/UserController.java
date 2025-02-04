@@ -41,10 +41,10 @@ public class UserController {
     }
 
     @PostMapping("/{id}/leads")
-    public ResponseEntity<Lead> createLead(@PathVariable("id") String parentId, @RequestBody Lead lead) {
+    public ResponseEntity<User> createLead(@PathVariable("id") String parentId, @RequestBody Lead lead) {
         User user = this.userService.validateUser(parentId);
-        Lead savedLead = this.userLeadService.addLeadToUser(user, lead);
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedLead);
+        User updatedUser = this.userLeadService.addLeadToUser(user, lead);
+        return ResponseEntity.status(HttpStatus.CREATED).body(updatedUser);
     }
 
     @PostMapping("/{id}/tasks")
