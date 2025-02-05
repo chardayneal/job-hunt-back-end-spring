@@ -10,11 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.Optional;
-
-
 @RestController
 @RequestMapping("/auth")
+@CrossOrigin(origins = "*")
 public class AuthController {
 
     private final UserRepository userRepository;
@@ -40,5 +38,10 @@ public class AuthController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Must provide email");
         }
         return this.userService.signInUser(user);
+    }
+
+    @GetMapping("/token")
+    public User validateUserByToken(@RequestParam String id) {
+        return this.userService.getUserByToken(id);
     }
 }

@@ -18,6 +18,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/leads")
+@CrossOrigin(origins = "*")
 public class LeadController {
 
     private final LeadRepository leadRepository;

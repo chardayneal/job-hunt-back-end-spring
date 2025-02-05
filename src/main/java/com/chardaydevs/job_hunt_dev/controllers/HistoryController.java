@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/history")
+@CrossOrigin(origins = "*")
 public class HistoryController {
 
     private final HistoryRepository historyRepository;

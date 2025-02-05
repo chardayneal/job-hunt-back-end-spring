@@ -1,7 +1,5 @@
 package com.chardaydevs.job_hunt_dev.controllers;
 
-import java.util.UUID;
-
 import com.chardaydevs.job_hunt_dev.models.Lead;
 import com.chardaydevs.job_hunt_dev.models.Task;
 import com.chardaydevs.job_hunt_dev.models.User;
@@ -46,6 +44,11 @@ public class UserController {
         User user = this.userService.validateUser(parentId);
         User updatedUser = this.userTaskService.addTaskToUser(user, task);
         return ResponseEntity.status(HttpStatus.CREATED).body(updatedUser);
+    }
+
+    @GetMapping("")
+    public Iterable<User> getAllUsers() {
+        return this.userRepository.findAll();
     }
 
     @GetMapping("/{id}")

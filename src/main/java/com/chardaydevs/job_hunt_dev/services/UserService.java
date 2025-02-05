@@ -97,4 +97,19 @@ public class UserService {
         return this.userRepository.save(user);
     }
 
+    @Transactional
+    public User getUserByToken(String token) {
+        try {
+            UUID userToken = UUID.fromString(token);
+        } catch (IllegalArgumentException error) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid token provided");
+        }
+
+        Optional<User> foundUser = userRepository.findByToken(UUID.fromString(token));
+        if (foundUser.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User with given token doesn't exist");
+        }
+        return foundUser.get();
+    }
+
 }
