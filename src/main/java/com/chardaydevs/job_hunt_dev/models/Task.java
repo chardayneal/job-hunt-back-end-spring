@@ -25,7 +25,7 @@ public class Task {
     private String text;
 
     @Column(name = "date")
-    private Date date = new Date();
+    private String date;
 
     @Column(name = "is_complete")
     private Boolean isComplete = false;
@@ -51,11 +51,11 @@ public class Task {
         this.text = text;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
