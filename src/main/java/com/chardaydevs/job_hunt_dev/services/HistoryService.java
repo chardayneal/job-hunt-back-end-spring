@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -60,7 +61,13 @@ public class HistoryService {
     @Transactional
     public Lead addHistoryToLead(Lead lead, @Valid History history) {
         history.setLead(lead);
+
+        if (lead.getHistoryList() == null) {
+            lead.setHistoryList(new ArrayList<>());
+        }
+
         lead.getHistoryList().add(history);
+        lead.setStatus(history.getStatus());
 
         return this.leadRepository.save(lead);
 

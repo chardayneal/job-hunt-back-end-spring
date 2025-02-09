@@ -1,7 +1,6 @@
 package com.chardaydevs.job_hunt_dev.services;
 
 import com.chardaydevs.job_hunt_dev.models.Lead;
-import com.chardaydevs.job_hunt_dev.models.User;
 import com.chardaydevs.job_hunt_dev.repositories.LeadRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
