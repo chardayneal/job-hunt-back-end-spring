@@ -39,6 +39,10 @@ public class User {
     @JsonManagedReference
     private List<Task> tasks;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Insight> insights;
+
     public UUID getId() {
         return id;
     }
@@ -85,5 +89,13 @@ public class User {
 
     public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
+    }
+
+    public List<Insight> getInsights() {
+        return insights;
+    }
+
+    public void setInsights(List<Insight> insights) {
+        this.insights = insights;
     }
 }
